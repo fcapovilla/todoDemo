@@ -1,4 +1,4 @@
-var TodoApp = {View: {}, Model: {}, Collection: {}};
+var TodoApp = TodoApp || {View: {}, Model: {}, Collection: {}};
 
 
 TodoApp.Model.Todo = Backbone.Model.extend({
