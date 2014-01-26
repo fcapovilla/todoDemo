@@ -25,9 +25,9 @@ TodoApp.Collection.Todo = Backbone.Collection.extend({
 });
 
 
-TodoApp.View.Todo = Backbone.View.extend({
+TodoApp.View.Todo = Marionette.ItemView.extend({
 	tagName: 'li',
-	template: _.template($('#tmpl_todo').html()),
+	template: '#tmpl_todo',
 
 	events: {
 		'click .delete': 'delete',
@@ -36,19 +36,14 @@ TodoApp.View.Todo = Backbone.View.extend({
 		"keypress .label":  "updateOnEnter"
 	},
 
-	initialize: function() {
-		this.listenTo(this.model, 'change', this.render);
-		this.listenTo(this.model, 'destroy', this.remove);
-    },
+	modelEvents: {
+		'change': 'render'
+	},
 
-	render: function() {
-		this.$el.html( this.template(this.model.attributes) );
-
+	onRender: function() {
 		if(this.model.get('editing') === true) {
 			this.$('.label').focus();
 		}
-
-		return this;
 	},
 
 	delete: function() {
@@ -74,34 +69,14 @@ TodoApp.View.Todo = Backbone.View.extend({
 	}
 });
 
-TodoApp.View.TodoList = Backbone.View.extend({
+TodoApp.View.TodoList = Marionette.CompositeView.extend({
 	el: '#content',
-	template: _.template($('#tmpl_todo_list').html()),
+	template: '#tmpl_todo_list',
+	itemViewContainer: 'ul',
+	itemView: TodoApp.View.Todo,
 
 	events: {
 		'click .newTodo': 'newTodo'
-	},
-
-	initialize: function(){
-		this.listenTo(this.collection, 'add', this.addOne);
-		this.listenTo(this.collection, 'reset', this.addAll);
-
-		this.render();
-	},
-
-	render: function() {
-		this.$el.html( this.template() );
-		return this;
-	},
-
-	addOne: function(todo) {
-		var view = new TodoApp.View.Todo({model: todo});
-		this.$("ul").prepend(view.render().el);
-	},
-
-	addAll: function() {
-		this.render();
-		this.collection.each(this.addOne, this);
 	},
 
 	newTodo: function() {
@@ -113,5 +88,6 @@ TodoApp.View.TodoList = Backbone.View.extend({
 $(function() {
 	TodoApp.todos = new TodoApp.Collection.Todo();
 	TodoApp.todoList = new TodoApp.View.TodoList({collection: TodoApp.todos});
+	TodoApp.todoList.render();
 	TodoApp.todos.fetch();
 });
