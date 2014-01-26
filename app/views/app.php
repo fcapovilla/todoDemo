@@ -15,6 +15,16 @@
 		</ul>
 	</script>
 
+	<script type="text/template" id="tmpl_todo">
+		<input type="checkbox" class="done" <% if(done == 1) { %>checked<% } %> />
+		<% if(done == 1) { %>
+			<s><%= label %></s>
+		<% } else { %>
+			<%= label %>
+		<% } %>
+		<button class="delete">Supprimer</button>
+	</script>
+
 	<script type="text/javascript" src="js/jquery-1.10.2.min.js"></script>
 	<script type="text/javascript" src="js/lodash.min.js"></script>
 	<script type="text/javascript" src="js/backbone-min.js"></script>
