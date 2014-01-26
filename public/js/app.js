@@ -2,6 +2,20 @@ var TodoApp = TodoApp || {View: {}, Model: {}, Collection: {}};
 
 
 TodoApp.Model.Todo = Backbone.Model.extend({
+	defaults: {
+		'editing': false,
+		'end_date': new Date()
+	},
+
+	initialize: function() {
+		if(this.get('done') == '0') {
+			this.set('done', false);
+		}
+	},
+
+	toggle: function() {
+		this.save({done: !this.get('done')});
+	}
 });
 
 
@@ -15,20 +29,58 @@ TodoApp.View.Todo = Backbone.View.extend({
 	tagName: 'li',
 	template: _.template($('#tmpl_todo').html()),
 
+	events: {
+		'click .delete': 'delete',
+		'click .edit': 'edit',
+		'click .done': 'toggleDone',
+		"keypress .label":  "updateOnEnter"
+	},
+
 	initialize: function() {
-      this.listenTo(this.model, 'change', this.render);
-      this.listenTo(this.model, 'destroy', this.remove);
+		this.listenTo(this.model, 'change', this.render);
+		this.listenTo(this.model, 'destroy', this.remove);
     },
 
 	render: function() {
 		this.$el.html( this.template(this.model.attributes) );
+
+		if(this.model.get('editing') === true) {
+			this.$('.label').focus();
+		}
+
 		return this;
+	},
+
+	delete: function() {
+		this.model.destroy();
+	},
+
+	edit: function() {
+		this.model.set('editing', true);
+	},
+
+	toggleDone: function() {
+		this.model.toggle();
+		return false;
+	},
+
+	updateOnEnter: function(e) {
+		var value = this.$('.label').val();
+
+		if (e.keyCode != 13) return;
+		if (!value) return;
+
+		this.model.save({label: value, editing: false});
 	}
 });
 
 TodoApp.View.TodoList = Backbone.View.extend({
 	el: '#content',
 	template: _.template($('#tmpl_todo_list').html()),
+
+	events: {
+		'click .newTodo': 'newTodo'
+	},
 
 	initialize: function(){
 		this.listenTo(this.collection, 'add', this.addOne);
@@ -44,12 +96,16 @@ TodoApp.View.TodoList = Backbone.View.extend({
 
 	addOne: function(todo) {
 		var view = new TodoApp.View.Todo({model: todo});
-		this.$("ul").append(view.render().el);
+		this.$("ul").prepend(view.render().el);
 	},
 
 	addAll: function() {
 		this.render();
 		this.collection.each(this.addOne, this);
+	},
+
+	newTodo: function() {
+		this.collection.add({label: '', done: false, editing: true});
 	}
 });
 
