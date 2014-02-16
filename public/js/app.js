@@ -4,7 +4,7 @@ var TodoApp = TodoApp || {View: {}, Model: {}, Collection: {}};
 TodoApp.Model.Todo = Backbone.Model.extend({
 	defaults: {
 		'editing': false,
-		'end_date': new Date()
+		'created_at': new Date()
 	},
 
 	initialize: function() {
@@ -21,7 +21,11 @@ TodoApp.Model.Todo = Backbone.Model.extend({
 
 TodoApp.Collection.Todo = Backbone.Collection.extend({
 	model: TodoApp.Model.Todo,
-	url: '/todo'
+	url: '/todo',
+
+	comparator: function(todo) {
+		return - todo.get('created_at');
+	}
 });
 
 
@@ -78,6 +82,9 @@ TodoApp.View.TodoList = Marionette.CompositeView.extend({
 	events: {
 		'click .newTodo': 'newTodo'
 	},
+	collectionEvents: {
+		'sort': 'render'
+	},
 
 	newTodo: function() {
 		this.collection.add({label: '', done: false, editing: true});
@@ -88,6 +95,5 @@ TodoApp.View.TodoList = Marionette.CompositeView.extend({
 $(function() {
 	TodoApp.todos = new TodoApp.Collection.Todo();
 	TodoApp.todoList = new TodoApp.View.TodoList({collection: TodoApp.todos});
-	TodoApp.todoList.render();
 	TodoApp.todos.fetch();
 });
