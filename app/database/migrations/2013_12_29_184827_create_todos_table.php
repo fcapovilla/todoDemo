@@ -15,7 +15,6 @@ class CreateTodosTable extends Migration {
 			$table->increments('id');
 			$table->string('label');
 			$table->boolean('done');
-			$table->datetime('end_date');
 			$table->timestamps();
 		});
 	}
