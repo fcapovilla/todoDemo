@@ -1,0 +1,52 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>Jasmine Spec Runner v2.0.0</title>
+
+  <link rel="shortcut icon" type="image/png" href="lib/jasmine-2.0.0/jasmine_favicon.png">
+  <link rel="stylesheet" type="text/css" href="lib/jasmine-2.0.0/jasmine.css">
+
+  <script type="text/javascript" src="lib/jasmine-2.0.0/jasmine.js"></script>
+  <script type="text/javascript" src="lib/jasmine-2.0.0/jasmine-html.js"></script>
+  <script type="text/javascript" src="lib/jasmine-2.0.0/boot.js"></script>
+  <script type="text/javascript" src="lib/sinon-1.8.2.js"></script>
+
+  <!-- include source files here... -->
+  <script type="text/javascript" src="../public/js/jquery-1.10.2.min.js"></script>
+  <script type="text/javascript" src="../public/js/lodash.min.js"></script>
+  <script type="text/javascript" src="../public/js/backbone-min.js"></script>
+  <script type="text/javascript" src="../public/js/backbone.marionette.min.js"></script>
+  <script type="text/javascript" src="../public/js/app.js"></script>
+
+  <!-- include spec files here... -->
+  <script type="text/javascript" src="spec/TodoModelSpec.js"></script>
+  <script type="text/javascript" src="spec/TodoCollectionSpec.js"></script>
+  <script type="text/javascript" src="spec/TodoListViewSpec.js"></script>
+  <script type="text/javascript" src="spec/TodoViewSpec.js"></script>
+
+</head>
+
+<body>
+	<script type="text/template" id="tmpl_todo_list">
+		<button class="newTodo">Nouveau</button>
+		<ul>
+		</ul>
+	</script>
+
+	<script type="text/template" id="tmpl_todo">
+		<% if(editing == true) { %>
+			<input type="text" class="label" value="<%= label %>"/>
+		<% } else { %>
+			<input type="checkbox" class="done" <% if(done == 1) { %>checked<% } %> />
+			<% if(done == 1) { %>
+				<s><%= label %></s>
+			<% } else { %>
+				<%= label %>
+			<% } %>
+			<button class="delete">Supprimer</button>
+			<button class="edit">Modifier</button>
+		<% } %>
+	</script>
+</body>
+</html>
