@@ -2,6 +2,6 @@
 
 class Todo extends Eloquent {
 
-	protected $fillable = array('label', 'done', 'end_date');
+	protected $fillable = array('label', 'done');
 
 }
