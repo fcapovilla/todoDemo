@@ -78,6 +78,9 @@ TodoApp.View.TodoList = Marionette.CompositeView.extend({
 	events: {
 		'click .newTodo': 'newTodo'
 	},
+	collectionEvents: {
+		'sync': 'render'
+	},
 
 	newTodo: function() {
 		this.collection.add({label: '', done: false, editing: true});
@@ -88,6 +91,5 @@ TodoApp.View.TodoList = Marionette.CompositeView.extend({
 $(function() {
 	TodoApp.todos = new TodoApp.Collection.Todo();
 	TodoApp.todoList = new TodoApp.View.TodoList({collection: TodoApp.todos});
-	TodoApp.todoList.render();
 	TodoApp.todos.fetch();
 });
