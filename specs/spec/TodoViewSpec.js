@@ -1,4 +1,4 @@
-describe("TodoModel", function() {
+describe("TodoView", function() {
 	beforeEach(function() {
 		this.todo = new TodoApp.Model.Todo({id: 1, done: true, label: 'test'});
 

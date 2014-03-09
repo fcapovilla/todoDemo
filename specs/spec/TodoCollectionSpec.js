@@ -1,4 +1,4 @@
-describe("TodoModel", function() {
+describe("TodoCollection", function() {
 	beforeEach(function() {
 		this.server = sinon.fakeServer.create();
 
