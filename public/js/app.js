@@ -83,7 +83,8 @@ TodoApp.View.TodoList = Marionette.CompositeView.extend({
 		'click .newTodo': 'newTodo'
 	},
 	collectionEvents: {
-		'sort': 'render'
+		'sort': 'render',
+		'sync': 'render',
 	},
 
 	newTodo: function() {

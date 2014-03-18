@@ -1,21 +1,22 @@
-## Laravel PHP Framework
+## TodoDemo
 
-[![Latest Stable Version](https://poser.pugx.org/laravel/framework/version.png)](https://packagist.org/packages/laravel/framework) [![Total Downloads](https://poser.pugx.org/laravel/framework/d/total.png)](https://packagist.org/packages/laravel/framework) [![Build Status](https://travis-ci.org/laravel/framework.png)](https://travis-ci.org/laravel/framework)
+Exemple d'application single-page utilisant Laravel, Backbone et Marionette.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable, creative experience to be truly fulfilling. Laravel attempts to take the pain out of development by easing common tasks used in the majority of web projects, such as authentication, routing, sessions, and caching.
+1. Installer les dépendances avec Composer
 
-Laravel aims to make the development process a pleasing one for the developer without sacrificing application functionality. Happy developers make the best code. To this end, we've attempted to combine the very best of what we have seen in other web frameworks, including frameworks implemented in other languages, such as Ruby on Rails, ASP.NET MVC, and Sinatra.
+	$ composer install
 
-Laravel is accessible, yet powerful, providing powerful tools needed for large, robust applications. A superb inversion of control container, expressive migration system, and tightly integrated unit testing support give you the tools you need to build any application with which you are tasked.
+2. Créer une base de données sqlite et la remplir avec les commandes suivantes :
 
-## Official Documentation
+	$ sqlite3 app/storage/production.sqlite ""
+	$ php artisan migrate
 
-Documentation for the entire framework can be found on the [Laravel website](http://laravel.com/docs).
+3. Ensuite, démarrer le serveur avec la commande suivante :
 
-### Contributing To Laravel
+	$ php artisan serve
 
-**All issues and pull requests should be filed on the [laravel/framework](http://github.com/laravel/framework) repository.**
+4. Vous pouvez accéder à votre serveur avec l'url suivant :
 
-### License
+	http://localhost:8000
 
-The Laravel framework is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT)
+Les tests Javascript peuvent être éxécutés en ouvrant le fichier specs/SpecRunner.html dans un navigateur.
