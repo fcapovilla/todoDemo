@@ -3,8 +3,7 @@ var TodoApp = TodoApp || {View: {}, Model: {}, Collection: {}};
 
 TodoApp.Model.Todo = Backbone.Model.extend({
 	defaults: {
-		'editing': false,
-		'end_date': new Date()
+		'editing': false
 	},
 
 	initialize: function() {
