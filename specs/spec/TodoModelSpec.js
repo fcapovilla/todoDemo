@@ -39,4 +39,24 @@ describe("TodoModel", function() {
 		expect(this.server.requests[0].method).toEqual("DELETE");
 		expect(this.server.requests[0].url).toEqual("/todo/1");
 	});
+
+	it("changes the 'done' value of the todo when toggled", function() {
+		expect(this.todo.get('done')).toEqual(true);
+
+		this.todo.toggle();
+
+		expect(this.todo.get('done')).toEqual(false);
+		expect(this.server.requests.length).toEqual(1);
+		expect(this.server.requests[0].method).toEqual("PUT");
+		expect(this.server.requests[0].url).toEqual("/todo/1");
+		expect(this.server.requests[0].requestBody).toContain('"done":false')
+
+		this.todo.toggle();
+
+		expect(this.todo.get('done')).toEqual(true);
+		expect(this.server.requests.length).toEqual(2);
+		expect(this.server.requests[1].method).toEqual("PUT");
+		expect(this.server.requests[1].url).toEqual("/todo/1");
+		expect(this.server.requests[1].requestBody).toContain('"done":true')
+	});
 });
