@@ -20,4 +20,6 @@ Exemple d'application single-page utilisant Laravel, Backbone et Marionette.
 
 	 http://localhost:8000
 
-Les tests Javascript peuvent être éxécutés en ouvrant le fichier specs/SpecRunner.html dans un navigateur.
+Vous pouvez éxécuter les tests Javascript en démarrant un serveur local avec la commande suivante et en accédant à l'url http://localhost:8000/specs/SpecRunner.html :
+
+	 $ php -S localhost:8000
