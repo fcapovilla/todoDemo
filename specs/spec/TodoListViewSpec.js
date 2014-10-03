@@ -25,10 +25,11 @@ describe("TodoListViewSpec", function() {
 	});
 
 	it("Adds a new todo to the list when the new todo button is clicked", function() {
-		spyOn(this.todos, 'add');
+		spyOn(this.todos, 'add').and.callThrough();
 
 		this.view.$el.find('.newTodo').click();
 
 		expect(this.todos.add).toHaveBeenCalled();
+                expect(this.todos.length).toEqual(3);
 	});
 });
