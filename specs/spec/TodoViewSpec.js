@@ -18,4 +18,42 @@ describe("TodoView", function() {
 
 		expect(this.todo.destroy).toHaveBeenCalled();
 	});
+
+	it("displays a text input when the edit button is clicked.", function() {
+		expect(this.view.$el.find('input[type="text"]').length).toEqual(0);
+		expect(this.todo.get('editing')).toEqual(false);
+
+		this.view.$el.find('.edit').click();
+
+		expect(this.view.$el.find('input[type="text"]').length).toEqual(1);
+		expect(this.todo.get('editing')).toEqual(true);
+	});
+
+	it("updates the todo when 'Enter' is pressed", function() {
+		spyOn(this.todo, 'save');
+		this.view.$el.find('.edit').click();
+
+		var input = this.view.$el.find('input[type="text"]');
+		var keypress = $.Event('keypress');
+		keypress.keyCode = 13
+
+		input.val('UPDATED VALUE');
+                input.trigger(keypress);
+
+		expect(this.todo.save).toHaveBeenCalled();
+	});
+
+	it("does nothing if 'Enter' is pressed with no value", function() {
+		spyOn(this.todo, 'save');
+		this.view.$el.find('.edit').click();
+
+		var input = this.view.$el.find('input[type="text"]');
+		var keypress = $.Event('keypress');
+		keypress.keyCode = 13
+
+		input.val('');
+                input.trigger(keypress);
+
+		expect(this.todo.save).not.toHaveBeenCalled();
+	});
 });
