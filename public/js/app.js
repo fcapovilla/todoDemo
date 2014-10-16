@@ -36,7 +36,7 @@ TodoApp.View.Todo = Marionette.ItemView.extend({
 	events: {
 		'click .delete': 'delete',
 		'click .edit': 'edit',
-		'click .done': 'toggleDone',
+		'change .done': 'toggleDone',
 		"keypress .label":  "updateOnEnter"
 	},
 

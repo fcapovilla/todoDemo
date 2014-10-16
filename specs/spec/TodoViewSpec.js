@@ -1,6 +1,9 @@
 describe("TodoView", function() {
 	beforeEach(function() {
+		this.server = sinon.fakeServer.create();
+
 		this.todo = new TodoApp.Model.Todo({id: 1, done: true, label: 'test'});
+		this.todo.collection = {url: '/todo'};
 
 		this.view = new TodoApp.View.Todo({model: this.todo});
 		this.view.render();
@@ -55,5 +58,20 @@ describe("TodoView", function() {
                 input.trigger(keypress);
 
 		expect(this.todo.save).not.toHaveBeenCalled();
+	});
+
+	it("toggles the 'done' value if the element is changed", function() {
+		spyOn(this.todo, 'toggle').and.callThrough();
+		expect(this.view.$el.find('s').length).toEqual(1);
+
+		this.view.$el.find('.done').change();
+
+		expect(this.view.$el.find('s').length).toEqual(0);
+		expect(this.todo.toggle.calls.count()).toEqual(1);
+
+		this.view.$el.find('.done').change();
+
+		expect(this.view.$el.find('s').length).toEqual(1);
+		expect(this.todo.toggle.calls.count()).toEqual(2);
 	});
 });
