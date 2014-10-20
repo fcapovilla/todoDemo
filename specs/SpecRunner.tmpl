@@ -1,0 +1,47 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Jasmine Spec Runner</title>
+        <link rel="shortcut icon" type="image/png" href="<%= temp %>/jasmine_favicon.png">
+        <% css.forEach(function(style){ %>
+            <link rel="stylesheet" type="text/css" href="<%= style %>">
+        <% }) %>
+    </head>
+    <body>
+        <% with (scripts) { %>
+            <% [].concat(polyfills, jasmine, boot, vendor, helpers, src, specs,reporters).forEach(function(script){ %>
+                <script src="<%= script %>"></script>
+            <% }) %>
+        <% }; %>
+
+        <script type="text/javascript">
+            _.templateSettings = {
+                interpolate: /\{\{\=(.+?)\}\}/g,
+                evaluate: /\{\{(.+?)\}\}/g
+            };
+        </script>
+
+        <script type="text/template" id="tmpl_todo_list">
+            <button class="newTodo">Nouveau</button>
+            <ul>
+            </ul>
+        </script>
+
+        <script type="text/template" id="tmpl_todo" src="">
+            {{ if(editing == true) { }}
+                <input type="text" class="label" value="{{= label }}"/>
+            {{ } else { }}
+                <input type="checkbox" class="done" {{ if(done == 1) { }}checked{{ } }} />
+                {{ if(done == 1) { }}
+                    <s>{{= label }}</s>
+                {{ } else { }}
+                    {{= label }}
+                {{ } }}
+                <button class="delete">Supprimer</button>
+                <button class="edit">Modifier</button>
+            {{ } }}
+        </script>
+    </body>
+</html>
+
