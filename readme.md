@@ -23,3 +23,8 @@ Exemple d'application single-page utilisant Laravel, Backbone et Marionette.
 Vous pouvez éxécuter les tests Javascript en démarrant un serveur local avec la commande suivante et en accédant à l'url http://localhost:8000/specs/SpecRunner.html :
 
 	 $ php -S localhost:8000
+
+Pour exécuter les tests en mode "headless", installer npm et éxécuter ces commandes à partir du dossier du projet :
+
+	 $ npm install
+	 $ grunt
